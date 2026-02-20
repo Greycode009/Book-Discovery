@@ -2,10 +2,8 @@ import React from 'react'
 
 const Homepage = () => {
   return (
-    <div>
-        <div>
-            
-        </div>
+    <div className='bg-purple-950 h-screen text-white '>
+      hello
     </div>
   )
 }

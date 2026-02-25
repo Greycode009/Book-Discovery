@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Homepage from "./pages/Homepage";
 const api_key = import.meta.env.VITE_api_key;
 
@@ -13,7 +14,7 @@ const App = () => {
     setBooks([]);
     try {
       const res = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=12&key=${api_key}`,
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=15&key=${api_key}`,
       );
       if (!res.ok) {
         throw new Error("Network response was not ok");
@@ -53,7 +54,11 @@ const App = () => {
         {books.map((b) => {
           const info = b.volumeInfo;
           return (
-            <div key={b.id} className="flex flex-col w-55 gap-3 mb-4">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              key={b.id}
+              className="flex flex-col w-55 gap-3 mb-4"
+            >
               {info.imageLinks?.thumbnail && (
                 <img
                   src={info.imageLinks.thumbnail}
@@ -61,13 +66,13 @@ const App = () => {
                   className="w-full h-70  object-cover rounded-lg"
                 />
               )}
-              <h3 className="text-sm font-semibold mt-2 line-clamp-2 w-full">
+              <h3 className="text-sm font-semibold mt-2 mb-[-10px] line-clamp-2 w-full">
                 {info.title}
               </h3>
               <p className="text-xs text-gray-400">
                 {info.authors?.join(", ") || "Unknown"}
               </p>
-            </div>
+            </motion.div>
           );
         })}
       </div>
